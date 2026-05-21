@@ -14,9 +14,9 @@ const insertcourse = require('./Routes/insertcourse')
 
 // middleware FIRST
 app.use(cors({
-    origin:[
-    "http://chavaramedia.santhisoft.com/",
-    "http://localhost:5173/"
+     origin: [
+        'http://localhost:5173',
+        'http://chavaramedia.santhisoft.com/'
     ]
 }))
 app.use(express.json())
