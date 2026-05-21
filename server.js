@@ -13,7 +13,12 @@ const gettype = require('./Routes/gettype')
 const insertcourse = require('./Routes/insertcourse')
 
 // middleware FIRST
-app.use(cors())
+app.use(cors({
+    origin:[
+    "http://chavaramedia.santhisoft.com/",
+    "http://localhost:5173/"
+    ]
+}))
 app.use(express.json())
 
 //  routes
