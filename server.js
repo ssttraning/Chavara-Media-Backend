@@ -11,6 +11,7 @@ const getmode = require('./Routes/getmode')
 const getcategory = require('./Routes/getcategory')
 const gettype = require('./Routes/gettype')
 const insertcourse = require('./Routes/insertcourse')
+const deletemode = require('./Routes/deletemode')
 
 // middleware FIRST
 app.use(cors({
@@ -30,7 +31,7 @@ app.use('/getmode',getmode)
 app.use('/getcategory',getcategory)
 app.use('/gettype',gettype)
 app.use('/insertcourse',insertcourse)
-
+app.use('/deletemode',deletemode)
 
 
 //  listen LAST
