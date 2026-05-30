@@ -25,7 +25,7 @@ router.post('/', (req, res) => {
                     return res.status(500).send("Failed to insert mode");
                 }
                 else {
-                  return res.send('mode inserted')
+                  return res.send({message:'mode inserted'})
                 }
             })
         }
