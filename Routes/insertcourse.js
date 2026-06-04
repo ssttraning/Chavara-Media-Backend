@@ -10,6 +10,7 @@ router.post('/', (req, res) => {
     const category = req.body.category;
     const type = req.body.type;
     const title = req.body.title;
+    const image = req.body.image;
     const description = req.body.description;
     const duration = req.body.duration;
     const amount = req.body.amount;
@@ -27,8 +28,8 @@ router.post('/', (req, res) => {
             return res.send({ message: "already exists" })
         }
         else {
-            const sql = "insert into tbl_course(course_title,course_description,course_mode_id,course_category_id,course_type_id,course_duration,course_startdate,course_enddate,course_hours,course_amount,course_status,course_lastdate) values(?,?,?,?,?,?,?,?,?,?,?,?)";
-            db.query(sql, [title,description,mode,category,type,duration,startdate,enddate,hours,amount,status,lastdate], (err, result) => {
+            const sql = "insert into tbl_course(course_title,course_image,course_description,course_mode_id,course_category_id,course_type_id,course_duration,course_startdate,course_enddate,course_hours,course_amount,course_status,course_lastdate) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            db.query(sql, [title,image,description,mode,category,type,duration,startdate,enddate,hours,amount,status,lastdate], (err, result) => {
                 if (err) {
                     console.log(err)
                     return res.status(500).send("Failed to insert course");
