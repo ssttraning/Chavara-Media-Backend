@@ -45,7 +45,7 @@ const uploadFile = require('./Routes/uploadFile')
 app.use(cors({
      origin: [
         'http://localhost:5173',
-        'http://chavaramedia.santhisoft.com/'
+        'http://chavaramedia.santhisoft.com'
     ]
 }))
 app.use(express.json())
