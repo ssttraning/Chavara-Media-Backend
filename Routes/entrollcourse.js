@@ -10,6 +10,7 @@ router.post('/', (req, res) => {
     const studentid = req.body.studentid;
     const coursestatus = 'Active'
     const paymentstatus = 'not paid'
+    const date = new Date().toISOString().split("T")[0];
     console.log('mode', studentid);
 
     const sqlquery = `select * from tbl_studentcourse where registration_id='${studentid}' and course_id='${courseid}'`;
@@ -21,8 +22,8 @@ router.post('/', (req, res) => {
            return res.send({message:'course already registered'})
         }
         else {
-            const sql = "insert into tbl_studentcourse(registration_id,course_id,course_status,payment_status) values(?,?,?,?)";
-            db.query(sql, [studentid,courseid,coursestatus,paymentstatus], (err, result) => {
+            const sql = "insert into tbl_studentcourse(registration_id,course_id,course_status,payment_status,entroll_date) values(?,?,?,?,?)";
+            db.query(sql, [studentid,courseid,coursestatus,paymentstatus,date], (err, result) => {
                 if (err) {
                     console.log(err)
                     return res.status(500).send("Failed to insert mode");

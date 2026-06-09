@@ -38,6 +38,11 @@ const getcoursebymode = require('./Routes/getcoursebymode')
 const getcoursebytype = require('./Routes/getcoursebytype')
 const getrelatedcourse = require('./Routes/getrelatedcourse')
 const entrollcourse = require('./Routes/entrollcourse')
+const insertteacher =require('./Routes/insertteacher')
+const gettutor = require('./Routes/gettutor')
+const rejecttutor = require('./Routes/rejecttutor')
+const approvetutor = require('./Routes/approvetutor')
+const setpassword = require('./Routes/setpassword')
 
 const uploadFile = require('./Routes/uploadFile')
 
@@ -90,6 +95,11 @@ app.use('/getcoursebymode',getcoursebymode)
 app.use('/getcoursebytype',getcoursebytype)
 app.use('/getrelatedcourse',getrelatedcourse)
 app.use('/entrollcourse',entrollcourse)
+app.use('/insertteacher',insertteacher)
+app.use('/gettutor',gettutor)
+app.use('/rejecttutor',rejecttutor)
+app.use('/approvetutor',approvetutor)
+app.use('/setpassword',setpassword)
 
 app.use('/uploadFile',uploadFile)
 
