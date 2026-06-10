@@ -18,11 +18,19 @@ router.post('/', (req, res) => {
         }
         else {
             if (result.length > 0) {
-                res.send(result)
+                res.send({loginid:result[0].student_id,role:"student"})
             }
             else {
-                const sql1 = `select * from tbl_tutor where tutor_email ='${email}' and tutor_password='${password}'`;
-
+                const sql1 = `select * from tbl_tutor where tutor_email ='${email}' and tutor_password='${password}' and tutor_status='Approved' or tutor_status='Assigned'`;
+                db.query(sql1,(err,result1)=>{
+                    if(err)
+                        console.log(err);
+                    else
+                    {
+                        res.send({loginid:result1[0].tutor_id,role:"tutor"})
+                    }
+                        
+                })
             }
         }
     })
