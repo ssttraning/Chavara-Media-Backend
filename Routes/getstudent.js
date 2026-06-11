@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     console.log(sql);
     
     db.query(sql, (err, result) => {
-        if (err) {
+        if (err) { 
             console.log(err)
         }
         else {
