@@ -49,6 +49,8 @@ const getassignedcourse = require('./Routes/getassignedcourse')
 const getstudent = require('./Routes/getstudent')
 const gettutorcourse = require('./Routes/gettutorcourse')
 const getregisteredstudent = require('./Routes/getregisteredstudent')
+const getstudentbycourse = require('./Routes/getstudentbycourse')
+const getmycourse = require('./Routes/getmycourse')
 
 const uploadFile = require('./Routes/uploadFile')
 
@@ -112,6 +114,8 @@ app.use('/getassignedcourse',getassignedcourse)
 app.use('/getstudent',getstudent)
 app.use('/gettutorcourse',gettutorcourse)
 app.use('/getregisteredstudent',getregisteredstudent)
+app.use('/getstudentbycourse',getstudentbycourse)
+app.use('/getmycourse',getmycourse)
 
 app.use('/uploadFile',uploadFile)
 
