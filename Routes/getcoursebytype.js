@@ -7,8 +7,9 @@ router.post('/', (req, res) => {
     // console.log(req.body);
  
     const type = req.body.type;
+   const date = new Date().toISOString().split('T')[0];
 
-    const sql = `select * from tbl_course where course_type_id='${type}'`;
+    const sql = `select * from tbl_course where course_type_id='${type}' and course_lastdate >='${date}'`;
 console.log(sql);
 
     db.query(sql, (err, result) => {

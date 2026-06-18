@@ -16,7 +16,8 @@ router.post('/', (req, res) => {
             console.log(err);
         else {
             let categoryid = result[0].course_category_id;
-            const sqlquery = `select * from tbl_course where course_category_id='${categoryid}' and course_id!='${courseid}' and course_lastdate>='${date}'`
+            const sqlquery = `select * from tbl_course c inner join tbl_tutor_course tc on tc.course_id=c.course_id 
+    inner join tbl_tutor tu on tc.tutor_id=tu.tutor_id where c.course_category_id='${categoryid}' and c.course_id!='${courseid}' and c.course_lastdate>='${date}'`
             db.query(sqlquery, (err, sqlresult) => {
                 if (err)
                     console.log(err);

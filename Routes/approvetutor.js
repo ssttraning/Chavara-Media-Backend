@@ -45,8 +45,8 @@ router.post('/', (req, res) => {
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: 'aswanyghosh716@gmail.com',
-                    pass: 'wivpgqiedhevjoui'
+                    user: 'chavaramedia2020@gmail.com',
+                    pass: 'sydwitiyizyamzqy'
                 }
             });
 
@@ -56,7 +56,7 @@ router.post('/', (req, res) => {
             try {
 
                 await transporter.sendMail({
-                    from: 'aswanyghosh716@gmail.com',
+                    from: 'chavaramedia2020@gmail.com',
                     to: tutor.tutor_email,
                     subject: 'Tutor Application Approved',
                     html: `

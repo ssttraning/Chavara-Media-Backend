@@ -5,9 +5,11 @@ const router = express.Router();
 
 router.post('/', (req, res) => {
     // console.log(req.body);
-    const courseid = req.body.courseid;
-    const sql = `select * from tbl_course_material m inner join tbl_course c on m.course_id=c.course_id where m.course_id='${courseid}' order by m.material_uploaddate desc`;
-    console.log(sql);
+    const registration_id = req.body.registration_id;
+
+    const sql = `SELECT *
+        FROM tbl_registration
+        WHERE registration_id ='${registration_id}'`;
 
     db.query(sql, (err, result) => {
         if (err) {
