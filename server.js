@@ -65,7 +65,6 @@ const uploadFile = require('./Routes/uploadFile')
 // middleware FIRST
 app.use(cors({
      origin: [
-        'http://localhost:5173',
         'https://chavaramedia.santhisoft.com'
     ]
 }))
