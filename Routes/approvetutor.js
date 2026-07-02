@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
             });
 
             const createPasswordLink =
-                `https://chavaramedia.santhisoft.com/create-password/${token}`;
+                `https://chavaramedia.com/create-password/${token}`;
 
             try {
 
