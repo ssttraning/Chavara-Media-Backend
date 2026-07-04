@@ -48,8 +48,8 @@ router.post('/', (req, res) => {
                 secure: true,
                 family: 4, // force IPv4 to avoid ENETUNREACH on Render
                 auth: {
-                    user: 'chavaramedia2020@gmail.com',
-                    pass: 'sydwitiyizyamzqy'
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASS
                 },
                 connectionTimeout: 20000,
                 greetingTimeout: 20000,
