@@ -44,15 +44,16 @@ router.post('/', (req, res) => {
 
             const transporter = nodemailer.createTransport({
                 host: 'smtp.gmail.com',
-                port: 587,
+                port: 465,
                 secure: true,
                 auth: {
                     user: 'chavaramedia2020@gmail.com',
                     pass: 'sydwitiyizyamzqy'
                 },
-                tls: {
-                    rejectUnauthorized: false
-                }
+                connectionTimeout: 10000,
+                greetingTimeout: 10000,
+                socketTimeout: 10000,
+                family: 4 // force IPv4
             });
 
             const createPasswordLink =
