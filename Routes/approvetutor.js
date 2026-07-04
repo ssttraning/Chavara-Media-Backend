@@ -43,10 +43,15 @@ router.post('/', (req, res) => {
             const tutor = tutorResult[0];
 
             const transporter = nodemailer.createTransport({
-                service: 'gmail',
+                host: 'smtp.gmail.com',
+                port: 587,
+                secure: false,
                 auth: {
                     user: 'chavaramedia2020@gmail.com',
                     pass: 'sydwitiyizyamzqy'
+                },
+                tls: {
+                    rejectUnauthorized: false
                 }
             });
 
