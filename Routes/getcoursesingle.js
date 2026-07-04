@@ -10,8 +10,7 @@ router.post('/', (req, res) => {
     // console.log('course',course);
 
     const sqlquery = `select * from tbl_course c inner join tbl_mode m on c.course_mode_id=m.mode_id 
-    inner join tbl_type t on c.course_type_id=t.type_id inner join tbl_tutor_course tc on tc.course_id=c.course_id
-    inner join tbl_tutor tu on tc.tutor_id=tu.tutor_id
+    inner join tbl_type t on c.course_type_id=t.type_id 
     inner join tbl_category ca on c.course_category_id=ca.category_id where c.course_id='${courseid}'`
    console.log(sqlquery);
    

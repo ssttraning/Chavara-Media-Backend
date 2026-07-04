@@ -43,28 +43,20 @@ router.post('/', (req, res) => {
             const tutor = tutorResult[0];
 
             const transporter = nodemailer.createTransport({
-                host: 'smtp.gmail.com',
-                port: 587,
-                secure: false,
-                requireTLS: true,
-                family: 4,
+                service: 'gmail',
                 auth: {
-                    user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS
-                },
-                connectionTimeout: 20000,
-                greetingTimeout: 20000,
-                socketTimeout: 30000
+                    user: 'chavaramedia2020@gmail.com',
+                    pass: 'sydwitiyizyamzqy'
+                }
             });
 
             const createPasswordLink =
                 `https://chavaramedia.com/create-password/${token}`;
 
             try {
-                await transporter.verify();
-                console.log("SMTP verify passed");
+
                 await transporter.sendMail({
-                    from: `"Chavara Media" <${process.env.EMAIL_USER}>`,
+                    from: 'chavaramedia2020@gmail.com',
                     to: tutor.tutor_email,
                     subject: 'Tutor Application Approved',
                     html: `
@@ -217,17 +209,16 @@ router.post('/', (req, res) => {
 `
                 });
 
-                return res.status(200).json({
+                return res.status(200).send({
                     message: 'Tutor approved'
                 });
 
-            } catch (error) {
-                console.log("Approve tutor error:", error);
+            } catch (mailError) {
 
-                return res.status(500).json({
-                    message: "Tutor approved but email failed",
-                    mailError: error.message,
-                    fullError: String(error)
+                console.log(mailError);
+
+                return res.status(500).send({
+                    message: 'Tutor approved but email failed'
                 });
             }
 

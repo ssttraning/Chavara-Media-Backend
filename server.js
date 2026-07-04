@@ -59,6 +59,7 @@ const paymenthistory = require('./Routes/paymenthistory')
 const getstudentdetails = require('./Routes/getstudentdetails')
 const admitstudentcourse = require('./Routes/admitstudentcourse')
 const getcoursedate=require('./Routes/getcoursedate')
+const getcoursesingle = require('./Routes/getcoursesingle')
 const contactmail=require('./Routes/contactmail')
 
 const uploadFile = require('./Routes/uploadFile')
@@ -66,7 +67,9 @@ const uploadFile = require('./Routes/uploadFile')
 // middleware FIRST
 app.use(cors({
      origin: [
-        "https://chavaramedia.com"
+        "http://localhost:5173",
+        "https://chavaramedia.com",
+        
     ]
 }))
 
@@ -134,6 +137,7 @@ app.use('/getstudentdetails',getstudentdetails)
 app.use('/admitstudentcourse',admitstudentcourse)
 app.use('/contactmail',contactmail)
 app.use('/getcoursedate',getcoursedate)
+app.use('/getcoursesingle',getcoursesingle)
 
 app.use('/uploadFile',uploadFile)
 
