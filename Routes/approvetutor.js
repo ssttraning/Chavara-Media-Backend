@@ -43,28 +43,26 @@ router.post('/', (req, res) => {
             const tutor = tutorResult[0];
 
             const transporter = nodemailer.createTransport({
-                host: 'relay-hosting.secureserver.net',
-                port: 25,
-                secure: false,
-                family: 4,
+                host: 'smtp.gmail.com',
+                port: 465,
+                secure: true,
+                family: 4, // force IPv4 to avoid ENETUNREACH on Render
                 auth: {
-                    user: 'info@santhisoft.com',
-                    pass: 'Pandemic#2021'
-                }
+                    user: 'chavaramedia2020@gmail.com',
+                    pass: 'sydwitiyizyamzqy'
+                },
+                connectionTimeout: 20000,
+                greetingTimeout: 20000,
+                socketTimeout: 30000
             });
 
             const createPasswordLink =
                 `https://chavaramedia.com/create-password/${token}`;
 
             try {
-                console.log("MAIL CONFIG CHECK");
-                console.log({
-                    host: 'smtp.office365.com',
-                    port: 587,
-                    secure: false
-                });
+
                 await transporter.sendMail({
-                    from: 'info@santhisoft.com',
+                    from: 'chavaramedia2020@gmail.com',
                     to: tutor.tutor_email,
                     subject: 'Tutor Application Approved',
                     html: `
