@@ -69,7 +69,7 @@ app.use(cors({
         "https://chavaramedia.com"
     ]
 }))
-app.options("*", cors());
+
 app.use(express.json())
 
 // access uploaded files
