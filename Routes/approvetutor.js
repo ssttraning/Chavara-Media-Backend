@@ -50,10 +50,10 @@ router.post('/', (req, res) => {
                     user: 'chavaramedia2020@gmail.com',
                     pass: 'sydwitiyizyamzqy'
                 },
-                connectionTimeout: 10000,
-                greetingTimeout: 10000,
-                socketTimeout: 10000,
-                family: 4 // force IPv4
+                family: 4,
+                connectionTimeout: 15000,
+                greetingTimeout: 15000,
+                socketTimeout: 15000
             });
 
             const createPasswordLink =
@@ -219,14 +219,17 @@ router.post('/', (req, res) => {
                     message: 'Tutor approved'
                 });
 
-            } catch (mailError) {
-                console.error("MAIL ERROR:", mailError);
+            } catch (error) {
+                console.log("Approve tutor error:", error);
+                console.log("Backend response:", error?.response?.data);
 
-                return res.status(500).json({
-                    message: "Tutor approved but email failed",
-                    mailError: mailError.message,
-                    fullError: String(mailError)
-                });
+                const msg =
+                    error?.response?.data?.message ||
+                    error?.response?.data?.mailError ||
+                    error?.message ||
+                    "Something went wrong";
+
+                alert(msg); // or toast.error(msg)
             }
 
         });
