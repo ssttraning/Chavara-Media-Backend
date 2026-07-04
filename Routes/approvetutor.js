@@ -43,8 +43,8 @@ router.post('/', (req, res) => {
             const tutor = tutorResult[0];
 
             const transporter = nodemailer.createTransport({
-                host: 'smtp.office365.com',
-                port: 587,
+                host: 'relay-hosting.secureserver.net',
+                port: 25,
                 secure: false,
                 family: 4,
                 auth: {
