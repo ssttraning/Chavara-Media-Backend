@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
             const transporter = nodemailer.createTransport({
                 host: 'smtp.gmail.com',
                 port: 587,
-                secure: false,
+                secure: true,
                 auth: {
                     user: 'chavaramedia2020@gmail.com',
                     pass: 'sydwitiyizyamzqy'
