@@ -46,14 +46,11 @@ router.post('/', (req, res) => {
                 host: 'smtp.office365.com',
                 port: 587,
                 secure: false,
+                family: 4,
                 auth: {
                     user: 'info@santhisoft.com',
                     pass: 'Pandemic#2021'
-                },
-                family: 4,
-                connectionTimeout: 15000,
-                greetingTimeout: 15000,
-                socketTimeout: 15000
+                }
             });
 
             const createPasswordLink =
