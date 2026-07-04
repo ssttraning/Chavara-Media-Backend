@@ -57,7 +57,12 @@ router.post('/', (req, res) => {
                 `https://chavaramedia.com/create-password/${token}`;
 
             try {
-
+                console.log("MAIL CONFIG CHECK");
+                console.log({
+                    host: 'smtp.office365.com',
+                    port: 587,
+                    secure: false
+                });
                 await transporter.sendMail({
                     from: 'info@santhisoft.com',
                     to: tutor.tutor_email,
