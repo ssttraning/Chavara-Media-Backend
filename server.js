@@ -1,5 +1,5 @@
 const express = require('express')
-const cors = require('cors')
+const cors = require('cors');
 var path = require('path');
 
 const app = express()
@@ -69,6 +69,7 @@ app.use(cors({
         "https://chavaramedia.com"
     ]
 }))
+app.options("*", cors());
 app.use(express.json())
 
 // access uploaded files

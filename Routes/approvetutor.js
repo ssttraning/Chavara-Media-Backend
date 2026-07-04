@@ -43,12 +43,12 @@ router.post('/', (req, res) => {
             const tutor = tutorResult[0];
 
             const transporter = nodemailer.createTransport({
-                host: 'smtp.gmail.com',
-                port: 465,
-                secure: true,
+                host: 'smtp.office365.com',
+                port: 587,
+                secure: false,
                 auth: {
-                    user: 'chavaramedia2020@gmail.com',
-                    pass: 'sydwitiyizyamzqy'
+                    user: 'info@santhisoft.com',
+                    pass: 'Pandemic#2021'
                 },
                 family: 4,
                 connectionTimeout: 15000,
@@ -62,7 +62,7 @@ router.post('/', (req, res) => {
             try {
 
                 await transporter.sendMail({
-                    from: 'chavaramedia2020@gmail.com',
+                    from: 'info@santhisoft.com',
                     to: tutor.tutor_email,
                     subject: 'Tutor Application Approved',
                     html: `
