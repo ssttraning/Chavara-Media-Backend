@@ -44,9 +44,10 @@ router.post('/', (req, res) => {
 
             const transporter = nodemailer.createTransport({
                 host: 'smtp.gmail.com',
-                port: 465,
-                secure: true,
-                family: 4, // force IPv4 to avoid ENETUNREACH on Render
+                port: 587,
+                secure: false,
+                requireTLS: true,
+                family: 4,
                 auth: {
                     user: process.env.EMAIL_USER,
                     pass: process.env.EMAIL_PASS
@@ -60,9 +61,10 @@ router.post('/', (req, res) => {
                 `https://chavaramedia.com/create-password/${token}`;
 
             try {
-
+                await transporter.verify();
+                console.log("SMTP verify passed");
                 await transporter.sendMail({
-                    from: 'chavaramedia2020@gmail.com',
+                    from: `"Chavara Media" <${process.env.EMAIL_USER}>`,
                     to: tutor.tutor_email,
                     subject: 'Tutor Application Approved',
                     html: `
@@ -215,7 +217,7 @@ router.post('/', (req, res) => {
 `
                 });
 
-                return res.status(200).send({
+                return res.status(200).json({
                     message: 'Tutor approved'
                 });
 
