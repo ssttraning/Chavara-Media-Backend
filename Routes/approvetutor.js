@@ -219,11 +219,12 @@ router.post('/', (req, res) => {
                 });
 
             } catch (mailError) {
+                console.error("MAIL ERROR:", mailError);
 
-                console.log(mailError);
-
-                return res.status(500).send({
-                    message: 'Tutor approved but email failed'
+                return res.status(500).json({
+                    message: "Tutor approved but email failed",
+                    mailError: mailError.message,
+                    fullError: String(mailError)
                 });
             }
 
