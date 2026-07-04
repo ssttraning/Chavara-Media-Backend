@@ -221,15 +221,12 @@ router.post('/', (req, res) => {
 
             } catch (error) {
                 console.log("Approve tutor error:", error);
-                console.log("Backend response:", error?.response?.data);
 
-                const msg =
-                    error?.response?.data?.message ||
-                    error?.response?.data?.mailError ||
-                    error?.message ||
-                    "Something went wrong";
-
-                alert(msg); // or toast.error(msg)
+                return res.status(500).json({
+                    message: "Tutor approved but email failed",
+                    mailError: error.message,
+                    fullError: String(error)
+                });
             }
 
         });

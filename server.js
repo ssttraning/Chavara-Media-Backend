@@ -66,7 +66,7 @@ const uploadFile = require('./Routes/uploadFile')
 // middleware FIRST
 app.use(cors({
      origin: [
-        'https://chavaramedia.com',
+        "https://chavaramedia.com"
     ]
 }))
 app.use(express.json())
