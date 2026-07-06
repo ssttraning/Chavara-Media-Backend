@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors');
-var path = require('path');
+const path = require('path');
+const fs = require("fs");
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -140,6 +141,26 @@ app.use('/getcoursedate',getcoursedate)
 app.use('/getcoursesingle',getcoursesingle)
 
 app.use('/uploadFile',uploadFile)
+
+
+app.get("/uploads-list", (req, res) => {
+    const uploadPath = path.join(__dirname, "uploads");
+
+    fs.readdir(uploadPath, (err, files) => {
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                error: err.message
+            });
+        }
+
+        res.json({
+            success: true,
+            count: files.length,
+            files: files
+        });
+    });
+});
 
 //  listen LAST
 app.listen(port, () => {
