@@ -47,8 +47,8 @@ router.post('/', (req, res) => {
                 port: 587,
                 secure: false,
                 auth: {
-                    user: process.env.EMAIL,
-                    pass: process.env.APP_PASSWORD
+                    user: 'aswanyghosh167@gmail.com',
+                    pass: 'kxaghitowylkxpma'
                 },
                 connectionTimeout: 30000,
                 greetingTimeout: 30000,
@@ -67,7 +67,7 @@ router.post('/', (req, res) => {
                     }
                 });
                 await transporter.sendMail({
-                    from: 'chavaramedia2020@gmail.com',
+                    from: 'aswanyghosh167@gmail.com',
                     to: tutor.tutor_email,
                     subject: 'Tutor Application Approved',
                     html: `
