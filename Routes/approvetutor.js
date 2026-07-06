@@ -45,8 +45,8 @@ router.post('/', (req, res) => {
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: 'chavaramedia2020@gmail.com',
-                    pass: 'sydwitiyizyamzqy'
+                    user: process.env.EMAIL,
+                    pass: process.env.APP_PASSWORD
                 }
             });
 
@@ -214,11 +214,12 @@ router.post('/', (req, res) => {
                 });
 
             } catch (mailError) {
+                console.error("Mail Error:", mailError);
 
-                console.log(mailError);
-
-                return res.status(500).send({
-                    message: 'Tutor approved but email failed'
+                return res.status(500).json({
+                    message: "Tutor approved but email failed",
+                    error: mailError.message,
+                    code: mailError.code
                 });
             }
 
