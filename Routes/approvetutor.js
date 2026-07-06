@@ -43,18 +43,29 @@ router.post('/', (req, res) => {
             const tutor = tutorResult[0];
 
             const transporter = nodemailer.createTransport({
-                service: 'gmail',
+                host: "smtp.gmail.com",
+                port: 587,
+                secure: false,
                 auth: {
                     user: process.env.EMAIL,
                     pass: process.env.APP_PASSWORD
-                }
+                },
+                connectionTimeout: 30000,
+                greetingTimeout: 30000,
+                socketTimeout: 30000
             });
 
             const createPasswordLink =
                 `https://chavaramedia.com/create-password/${token}`;
 
             try {
-
+                transporter.verify(function (error, success) {
+                    if (error) {
+                        console.log("SMTP Verify Error:", error);
+                    } else {
+                        console.log("SMTP Server is ready");
+                    }
+                });
                 await transporter.sendMail({
                     from: 'chavaramedia2020@gmail.com',
                     to: tutor.tutor_email,
