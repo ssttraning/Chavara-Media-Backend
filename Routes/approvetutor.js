@@ -3,6 +3,9 @@ const db = require('../Database/db');
 const router = express.Router();
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const dns = require("dns");
+
+dns.setDefaultResultOrder("ipv4first");
 
 router.post('/', (req, res) => {
 
@@ -47,18 +50,17 @@ router.post('/', (req, res) => {
                 port: 587,
                 secure: false,
                 auth: {
-                    user: 'aswanyghosh167@gmail.com',
-                    pass: 'kxaghitowylkxpma'
-                },
-                connectionTimeout: 30000,
-                greetingTimeout: 30000,
-                socketTimeout: 30000
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASS
+                }
             });
 
             const createPasswordLink =
                 `https://chavaramedia.com/create-password/${token}`;
 
             try {
+                console.log("EMAIL_USER:", process.env.EMAIL_USER);
+                console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
                 transporter.verify(function (error, success) {
                     if (error) {
                         console.log("SMTP Verify Error:", error);
@@ -67,7 +69,7 @@ router.post('/', (req, res) => {
                     }
                 });
                 await transporter.sendMail({
-                    from: 'aswanyghosh167@gmail.com',
+                    from: process.env.EMAIL_USER,
                     to: tutor.tutor_email,
                     subject: 'Tutor Application Approved',
                     html: `
