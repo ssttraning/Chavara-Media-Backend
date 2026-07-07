@@ -50,30 +50,27 @@ router.post('/', (req, res) => {
             const tutor = tutorResult[0];
 
             const transporter = nodemailer.createTransport({
-               host: "smtp-relay.brevo.com",
-    port: 587,
-    secure: false,
-    auth: {
-        user: process.env.BREVO_USER,
-        pass: process.env.BREVO_PASS
-    }
+                host: "smtp-relay.brevo.com",
+                port: 465,
+                secure: true,
+                auth: {
+                    user: process.env.BREVO_USER,
+                    pass: process.env.BREVO_PASS
+                },
+                connectionTimeout: 60000,
+                greetingTimeout: 60000,
+                socketTimeout: 60000
             });
 
             const createPasswordLink =
                 `https://chavaramedia.com/create-password/${token}`;
 
             try {
-                // console.log("EMAIL_USER:", process.env.EMAIL_USER);
-                // console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
-                // transporter.verify(function (error, success) {
-                //     if (error) {
-                //         console.log("SMTP Verify Error:", error);
-                //     } else {
-                //         console.log("SMTP Server is ready");
-                //     }
-                // });
+                console.log("EMAIL_USER:", process.env.BREVO_USER);
+                console.log("EMAIL_PASS exists:", !!process.env.BREVO_PASS);
+
                 await transporter.sendMail({
-                   from: '"Chavara Media" <chavaramedia2020@gmail.com>',
+                    from: '"Chavara Media" <chavaramedia2020@gmail.com>',
                     to: tutor.tutor_email,
                     subject: 'Tutor Application Approved',
                     html: `
