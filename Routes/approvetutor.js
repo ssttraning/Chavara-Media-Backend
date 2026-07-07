@@ -50,13 +50,14 @@ router.post('/', (req, res) => {
             const tutor = tutorResult[0];
 
             const transporter = nodemailer.createTransport({
-                service: "gmail",
+                host: "74.125.24.108", // Gmail SMTP IPv4
+                port: 465,
+                secure: true,
                 auth: {
                     user: process.env.EMAIL_USER,
                     pass: process.env.EMAIL_PASS
                 },
-                connectionTimeout: 20000,
-                socketTimeout: 20000
+                 family: 4
             });
 
             const createPasswordLink =
