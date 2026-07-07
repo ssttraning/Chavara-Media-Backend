@@ -3,6 +3,7 @@ const db = require('../Database/db');
 const router = express.Router();
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const axios = require("axios");
 const dns = require("dns");
 
 dns.setDefaultResultOrder("ipv4first");
@@ -72,12 +73,19 @@ router.post('/', (req, res) => {
             try {
                 console.log("EMAIL_USER:", process.env.BREVO_USER);
                 console.log("EMAIL_PASS exists:", !!process.env.BREVO_PASS);
-
-                await transporter.sendMail({
-                    from: '"Chavara Media" <chavaramedia2020@gmail.com>',
-                    to: tutor.tutor_email,
-                    subject: 'Tutor Application Approved',
-                    html: `
+                await axios.post("https://api.brevo.com/v3/smtp/email", {
+                    sender: {
+                        name: "Chavara Media",
+                        email: "chavaramedia2020@gmail.com"
+                    },
+                    to: [
+                        {
+                            email: tutor.tutor_email,
+                            name: tutor.tutor_name
+                        }
+                    ],
+                    subject: "Tutor Application Approved",
+                    htmlContent: ` 
 <div style="
     font-family: Arial, Helvetica, sans-serif;
     background-color: #f5f7fa;
@@ -225,7 +233,13 @@ router.post('/', (req, res) => {
 
 </div>
 `
+                }, {
+                    headers: {
+                        "api-key": process.env.BREVO_API_KEY,
+                        "Content-Type": "application/json"
+                    }
                 });
+
 
                 return res.status(200).send({
                     message: 'Tutor approved'
