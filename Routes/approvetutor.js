@@ -51,15 +51,19 @@ router.post('/', (req, res) => {
 
             const transporter = nodemailer.createTransport({
                 host: "smtp-relay.brevo.com",
-                port: 465,
-                secure: true,
+                port: 587,
+                secure: false,
+                requireTLS: true,
                 auth: {
                     user: process.env.BREVO_USER,
                     pass: process.env.BREVO_PASS
                 },
-                connectionTimeout: 60000,
-                greetingTimeout: 60000,
-                socketTimeout: 60000
+                tls: {
+                    rejectUnauthorized: false
+                },
+                connectionTimeout: 120000,
+                greetingTimeout: 120000,
+                socketTimeout: 120000
             });
 
             const createPasswordLink =
