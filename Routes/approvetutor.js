@@ -50,11 +50,13 @@ router.post('/', (req, res) => {
             const tutor = tutorResult[0];
 
             const transporter = nodemailer.createTransport({
-                service:"gmail",
-                auth: {
-                    user: "chavaramedia2020@gmail.com",
-                    pass: "sydwitiyizyamzqy"
-                }
+               host: "smtp-relay.brevo.com",
+    port: 587,
+    secure: false,
+    auth: {
+        user: process.env.BREVO_USER,
+        pass: process.env.BREVO_PASS
+    }
             });
 
             const createPasswordLink =
@@ -63,15 +65,15 @@ router.post('/', (req, res) => {
             try {
                 // console.log("EMAIL_USER:", process.env.EMAIL_USER);
                 // console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
-                transporter.verify(function (error, success) {
-                    if (error) {
-                        console.log("SMTP Verify Error:", error);
-                    } else {
-                        console.log("SMTP Server is ready");
-                    }
-                });
+                // transporter.verify(function (error, success) {
+                //     if (error) {
+                //         console.log("SMTP Verify Error:", error);
+                //     } else {
+                //         console.log("SMTP Server is ready");
+                //     }
+                // });
                 await transporter.sendMail({
-                    from: 'chavaramedia2020@gmail.com',
+                   from: '"Chavara Media" <chavaramedia2020@gmail.com>',
                     to: tutor.tutor_email,
                     subject: 'Tutor Application Approved',
                     html: `
