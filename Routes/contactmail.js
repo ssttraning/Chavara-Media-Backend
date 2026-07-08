@@ -1,204 +1,87 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const nodemailer = require('nodemailer');
-const dns = require("dns");
+const axios = require("axios");
 
-dns.setDefaultResultOrder("ipv4first");
-
-dns.lookup("smtp.gmail.com", { all: true }, (err, addresses) => {
-    console.log("SMTP DNS:", addresses);
-});
-
-router.post('/', async (req, res) => {
-
-    const { name, email, phone, comments } = req.body;
-    console.log(name, email)
-    const transporter = nodemailer.createTransport({
-        host: "smtp-relay.brevo.com",
-        port: 587,
-        secure: false,
-        requireTLS: true,
-        auth: {
-            user: process.env.BREVO_USER,
-            pass: process.env.BREVO_PASS
-        },
-        tls: {
-            rejectUnauthorized: false
-        },
-        connectionTimeout: 120000,
-        greetingTimeout: 120000,
-        socketTimeout: 120000
-    });
-
+router.post("/", async (req, res) => {
     try {
 
-        await transporter.sendMail({
-            from: `"Chavara Media Contact Form" <${process.env.BREVO_USER}>`,
-            to: "chavaramedia2020@gmail.com",
-            replyTo: email,
-            subject: "New Contact Form Message",
-            html: `
-<div style="
-    background:#f4f7fb;
-    padding:40px 20px;
-    font-family:Arial, Helvetica, sans-serif;
-">
+        const { name, email, phone, comments } = req.body;
 
-    <div style="
-        max-width:650px;
-        margin:auto;
-        background:#ffffff;
-        border-radius:18px;
-        overflow:hidden;
-        box-shadow:0 10px 35px rgba(0,0,0,0.08);
-    ">
+        await axios.post(
+            "https://api.brevo.com/v3/smtp/email",
+            {
+                sender: {
+                    name: "Chavara Media Contact Form",
+                    email: "chavaramedia2020@gmail.com"   // Must be verified in Brevo
+                },
+                to: [
+                    {
+                        email: "chavaramedia2020@gmail.com",
+                        name: "Chavara Media"
+                    }
+                ],
+                replyTo: {
+                    email: email,
+                    name: name
+                },
+                subject: "New Contact Form Message",
+                htmlContent: `
+<div style="background:#f4f7fb;padding:40px 20px;font-family:Arial,Helvetica,sans-serif;">
 
-        <div style="
-            background:linear-gradient(135deg,#2563eb,#1d4ed8);
-            padding:35px;
-            text-align:center;
-            color:#fff;
-        ">
-            <h1 style="margin:0;font-size:28px;">
-                📩 New Contact Enquiry
-            </h1>
+<div style="max-width:650px;margin:auto;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 10px 35px rgba(0,0,0,.08);">
 
-            <p style="
-                margin-top:10px;
-                opacity:.9;
-                font-size:15px;
-            ">
-                A visitor has submitted a message through your website.
-            </p>
-        </div>
+<div style="background:#2563eb;padding:35px;text-align:center;color:#fff;">
+<h2>📩 New Contact Enquiry</h2>
+<p>A visitor has submitted a message through your website.</p>
+</div>
 
-        <div style="padding:35px;">
+<div style="padding:35px;">
 
-            <div style="
-                background:#f8fafc;
-                border-radius:12px;
-                padding:18px;
-                margin-bottom:15px;
-            ">
-                <div style="
-                    color:#6b7280;
-                    font-size:13px;
-                    margin-bottom:5px;
-                ">
-                    Full Name
-                </div>
+<p><strong>Name:</strong> ${name}</p>
 
-                <div style="
-                    color:#111827;
-                    font-size:17px;
-                    font-weight:600;
-                ">
-                    ${name}
-                </div>
-            </div>
+<p><strong>Email:</strong> ${email}</p>
 
-            <div style="
-                background:#f8fafc;
-                border-radius:12px;
-                padding:18px;
-                margin-bottom:15px;
-            ">
-                <div style="
-                    color:#6b7280;
-                    font-size:13px;
-                    margin-bottom:5px;
-                ">
-                    Email Address
-                </div>
+<p><strong>Phone:</strong> ${phone}</p>
 
-                <div style="
-                    color:#111827;
-                    font-size:17px;
-                    font-weight:600;
-                ">
-                    ${email}
-                </div>
-            </div>
+<p><strong>Message:</strong></p>
 
-            <div style="
-                background:#f8fafc;
-                border-radius:12px;
-                padding:18px;
-                margin-bottom:15px;
-            ">
-                <div style="
-                    color:#6b7280;
-                    font-size:13px;
-                    margin-bottom:5px;
-                ">
-                    Phone Number
-                </div>
+<div style="background:#eef6ff;padding:20px;border-left:4px solid #2563eb;">
+${comments}
+</div>
 
-                <div style="
-                    color:#111827;
-                    font-size:17px;
-                    font-weight:600;
-                ">
-                    ${phone}
-                </div>
-            </div>
+</div>
 
-            <div style="
-                background:#eef6ff;
-                border-left:4px solid #2563eb;
-                border-radius:12px;
-                padding:20px;
-                margin-top:25px;
-            ">
-                <div style="
-                    color:#2563eb;
-                    font-weight:700;
-                    margin-bottom:10px;
-                ">
-                    Message
-                </div>
-
-                <div style="
-                    color:#374151;
-                    line-height:1.8;
-                ">
-                    ${comments}
-                </div>
-            </div>
-
-        </div>
-
-        <div style="
-            background:#f9fafb;
-            text-align:center;
-            padding:18px;
-            color:#6b7280;
-            font-size:13px;
-        ">
-            Contact Form Notification
-        </div>
-
-    </div>
+</div>
 
 </div>
 `
-        });
+            },
+            {
+                headers: {
+                    accept: "application/json",
+                    "api-key": process.env.BREVO_API_KEY,
+                    "content-type": "application/json"
+                }
+            }
+        );
 
         res.status(200).json({
             success: true,
-            message: 'Message sent successfully'
+            message: "Message sent successfully"
         });
 
     } catch (error) {
 
-        console.log(error);
+        console.log(
+            error.response?.data || error.message
+        );
 
         res.status(500).json({
             success: false,
-            message: 'Failed to send email'
+            message: error.response?.data || error.message
         });
-    }
 
+    }
 });
 
 module.exports = router;
