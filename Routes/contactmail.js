@@ -1,6 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
+const dns = require("dns");
+
+dns.setDefaultResultOrder("ipv4first");
+
+dns.lookup("smtp.gmail.com", { all: true }, (err, addresses) => {
+    console.log("SMTP DNS:", addresses);
+});
 
 router.post('/', async (req, res) => {
 
@@ -26,9 +33,10 @@ router.post('/', async (req, res) => {
     try {
 
         await transporter.sendMail({
-            from: email,
-            to: 'chavaramedia2020@gmail.com',
-            subject: 'New Contact Form Message',
+            from: `"Chavara Media Contact Form" <${process.env.BREVO_USER}>`,
+            to: "chavaramedia2020@gmail.com",
+            replyTo: email,
+            subject: "New Contact Form Message",
             html: `
 <div style="
     background:#f4f7fb;
