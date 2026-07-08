@@ -1,7 +1,10 @@
+require("dotenv").config();
+
 const express = require('express')
 const cors = require('cors');
 const path = require('path');
 const fs = require("fs");
+
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -64,6 +67,10 @@ const getcoursesingle = require('./Routes/getcoursesingle')
 const contactmail=require('./Routes/contactmail')
 
 const uploadFile = require('./Routes/uploadFile')
+
+// const uploadToFTP = require("./helpers/ftpUpload");
+
+// uploadToFTP("./uploads/angular.png", "angular.png");
 
 // middleware FIRST
 app.use(cors({
@@ -169,3 +176,7 @@ app.listen(port, () => {
 app.get('/', (req, res) => {
     res.send("Backend is running successfully")
 })
+// console.log("cloud name",process.env.CLOUDINARY_CLOUD_NAME);
+console.log(process.env.FTP_HOST);
+console.log(process.env.FTP_USER);
+console.log(process.env.FTP_PASSWORD);
