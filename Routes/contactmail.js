@@ -7,11 +7,20 @@ router.post('/', async (req, res) => {
     const { name, email, phone, comments } = req.body;
     console.log(name, email)
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: "smtp-relay.brevo.com",
+        port: 587,
+        secure: false,
+        requireTLS: true,
         auth: {
-            user: 'chavaramedia2020@gmail.com',
-            pass: 'sydwitiyizyamzqy'
-        }
+            user: process.env.BREVO_USER,
+            pass: process.env.BREVO_PASS
+        },
+        tls: {
+            rejectUnauthorized: false
+        },
+        connectionTimeout: 120000,
+        greetingTimeout: 120000,
+        socketTimeout: 120000
     });
 
     try {
