@@ -20,13 +20,14 @@ const ftpUpload = require("../helpers/ftpUpload");
 module.exports = async (req, res) => {
     try {
         await util.promisify(uploadFile)(req, res);
+        console.log(req.file);
 
         if (!req.file) {
             return res.status(400).send({
                 message: "Please upload a file."
             });
         }
-
+        console.log("Uploading to FTP...");
         // Upload to GoDaddy FTP
         await ftpUpload(req.file.path, req.file.filename);
 
