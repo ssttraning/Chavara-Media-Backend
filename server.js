@@ -65,6 +65,8 @@ const admitstudentcourse = require('./Routes/admitstudentcourse')
 const getcoursedate=require('./Routes/getcoursedate')
 const getcoursesingle = require('./Routes/getcoursesingle')
 const contactmail=require('./Routes/contactmail')
+const getlecturecount = require('./Routes/getlecturecount')
+const getcourseinstructors = require('./Routes/getcourseinstructors')
 
 const uploadFile = require('./Routes/uploadFile')
 
@@ -146,6 +148,8 @@ app.use('/admitstudentcourse',admitstudentcourse)
 app.use('/contactmail',contactmail)
 app.use('/getcoursedate',getcoursedate)
 app.use('/getcoursesingle',getcoursesingle)
+app.use('/getlecturecount',getlecturecount)
+app.use('/getcourseinstructors',getcourseinstructors)
 
 app.use('/uploadFile',uploadFile)
 
