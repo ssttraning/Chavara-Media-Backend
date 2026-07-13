@@ -1,6 +1,4 @@
-require("dotenv").config();
 const mysql = require('mysql2');
-console.log("Connecting to:", process.env.DB_HOST);
 
 const db = mysql.createPool({
     host:"n1nlmysql57plsk.secureserver.net",
