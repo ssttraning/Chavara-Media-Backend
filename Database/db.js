@@ -1,5 +1,5 @@
 const mysql = require('mysql2');
-console.log("Connectiong to :n1nlmysql57plsk.secureserver.net");
+console.log("Connecting to:", process.env.DB_HOST);
 
 const db = mysql.createPool({
     host:"n1nlmysql57plsk.secureserver.net",
