@@ -181,6 +181,11 @@ app.get('/', (req, res) => {
     res.send("Backend is running successfully")
 })
 // console.log("cloud name",process.env.CLOUDINARY_CLOUD_NAME);
-console.log(process.env.FTP_HOST);
-console.log(process.env.FTP_USER);
-console.log(process.env.FTP_PASSWORD);
+// console.log(process.env.FTP_HOST);
+// console.log(process.env.FTP_USER);
+// console.log(process.env.FTP_PASSWORD);
+const dns = require("dns");
+
+dns.lookup("n1nlmysql57plsk.secureserver.net", (err, address, family) => {
+    console.log("DNS Result:", err || { address, family });
+});

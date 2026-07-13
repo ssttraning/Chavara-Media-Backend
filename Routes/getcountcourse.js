@@ -11,8 +11,7 @@ router.get('/', (req, res) => {
 FROM tbl_category
 LEFT JOIN tbl_course
 ON tbl_category.category_id = tbl_course.course_category_id
-GROUP BY tbl_category.category_id
-    `;
+GROUP BY tbl_category.category_id`;
 
     db.query(sql, (err, result) => {
         if (err) {
@@ -22,7 +21,6 @@ GROUP BY tbl_category.category_id
             res.status(200).json(result);
         }
     });
-
 });
 
 module.exports = router;
