@@ -3,8 +3,13 @@ const ftp = require("basic-ftp");
 async function uploadToFTP(localFilePath, remoteFileName) {
 
     const client = new ftp.Client();
+    client.ftp.verbose = true;
 
     try {
+
+        console.log("Connecting to FTP...");
+        console.log("Host:", process.env.FTP_HOST);
+        console.log("User:", process.env.FTP_USER);
 
         await client.access({
             host: process.env.FTP_HOST,
@@ -14,17 +19,22 @@ async function uploadToFTP(localFilePath, remoteFileName) {
             secure: false
         });
 
+        console.log("Connected Successfully");
+
         await client.ensureDir("uploads");
+        console.log("Directory Ready");
 
         await client.uploadFrom(localFilePath, remoteFileName);
 
-        console.log("FTP Upload Successful");
+        console.log("Upload Successful");
 
         return remoteFileName;
 
     } catch (err) {
 
-        console.log("FTP Error:", err);
+        console.log("FTP ERROR");
+        console.log(err);
+
         throw err;
 
     } finally {
