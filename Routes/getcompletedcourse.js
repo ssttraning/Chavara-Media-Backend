@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 
      const sql = `select * from tbl_course c inner join tbl_mode m on c.course_mode_id=m.mode_id 
     inner join tbl_type t on c.course_type_id=t.type_id
-    where c.course_lastdate <='${date}'`;
+    where c.course_enddate <='${date}'`;
     // console.log(sql)
     db.query(sql, (err, result) => {
         if (err) {
